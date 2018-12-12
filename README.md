@@ -3,6 +3,7 @@ Using sentiment analysis and Emojis to enhance sarcasm detection in tweets
 
 ## Setting up python virtualenv
 ```
+sudo yum install --user python3-pip
 pip3 install virtualenv
 python3 -m virtualenv env
 source env/bin/activate
