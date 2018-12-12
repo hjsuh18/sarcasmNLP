@@ -1,0 +1,12 @@
+Metadata-Version: 1.0
+Name: amazon-kclpy
+Version: 1.5.0
+Summary: A python interface for the Amazon Kinesis Client Library MultiLangDaemon
+Home-page: https://github.com/awslabs/amazon-kinesis-client-python
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: Amazon Software License
+Description-Content-Type: UNKNOWN
+Description: UNKNOWN
+Keywords: amazon kinesis client library python
+Platform: UNKNOWN

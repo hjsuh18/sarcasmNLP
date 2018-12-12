@@ -18,7 +18,7 @@ def main():
 
     streamStoreListener = StreamStoreListener()
     stream = tweepy.Stream(auth = api.auth, listener=streamStoreListener)
-    places = api.geo_search(query="USA",granularity="country")
+#    places = api.geo_search(query="USA",granularity="country")
 
     # stream all english tweets
     # need track parameter, so use vowels to track every tweet

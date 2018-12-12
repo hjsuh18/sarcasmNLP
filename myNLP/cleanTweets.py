@@ -7,6 +7,16 @@ There are multiple ways in which a tweet needs to be cleaned.
 4. Remove all other @mention within the text
 5. Remove hashtag and leave word
 """
+def isRetweet(self, text):
+        """
+        text : str
+            text of tweet
+        returns boolean, true if tweet is retweet
+        """
+        if 'RT @' in text:
+            return True
+        else:
+            return False
 
 def startsWithMention(tweet):
 	"""Determines whether tweet starts with @mention

@@ -6,28 +6,20 @@
 import tweepy
 import boto3
 import sys
-sys.path.append('../keys') # hard-coded path to file
-from twitter_keys import *
+sys.path.append('../') # hard-coded path to file
+from keys.twitter_keys import *
+from myNLP.cleanTweets import *
 
 class StreamStoreListener(tweepy.StreamListener):
-    def is_retweet(self, text):
-        """
-        text : str
-            text of tweet
-        returns boolean, true if tweet is retweet
-        """
-        if 'RT @' in text:
-            return True
-        else:
-            return False
-
     def on_status(self, status):
+		text = status.text
         #  do not save retweets
-        if self.is_retweet(status.text):
-            return
-        # put tweet id and text into aws kinesis
-        kinesis = boto3.client("kinesis")
-        kinesis.put_record(StreamName="twitter", Data=bytes(status.id_str + " " + status.text, 'utf-8'), PartitionKey="filler")
+		if self.isRetweet(text) or  startsWithMention(text) or containsURL(text):
+			return
+
+		# put tweet id and text into aws kinesis
+		kinesis = boto3.client("kinesis")
+		kinesis.put_record(StreamName="twitter", Data=bytes(status.id_str + " " + text, 'utf-8'), PartitionKey="filler")
         print(status.id_str)
 
     def on_error(self, status_code):
