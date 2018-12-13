@@ -40,8 +40,6 @@ amazon_kclpy/v2/__init__.py
 amazon_kclpy/v2/processor.py
 samples/__init__.py
 samples/amazon_kclpy_helper.py
-samples/sample.properties
-samples/sample_kclpy_app.py
-samples/sample_kinesis_wordputter.py
+samples/sample.py
 test/test_amazon_kclpy.py
 test/test_amazon_kclpy_input_output_integration.py

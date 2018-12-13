@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/home/ec2-user/sarcasmNLP/env/bin/python
 # Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Amazon Software License (the "License").
