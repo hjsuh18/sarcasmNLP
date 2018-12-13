@@ -2,3 +2,4 @@
 keys
 __pycache__
 env
+*.pyc

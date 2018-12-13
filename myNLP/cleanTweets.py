@@ -7,7 +7,7 @@ There are multiple ways in which a tweet needs to be cleaned.
 4. Remove all other @mention within the text
 5. Remove hashtag and leave word
 """
-def isRetweet(self, text):
+def isRetweet(text):
         """
         text : str
             text of tweet
