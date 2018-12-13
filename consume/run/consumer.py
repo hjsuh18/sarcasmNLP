@@ -127,7 +127,7 @@ class RecordProcessor(processor.RecordProcessorBase):
 		sarcastic = hashtagLabel(text)
 
 		# do more data processing here
-		self.save_data(data, id, text, sarcastic)
+		self.save_data(id, text, sarcastic)
 		return
 
 	def should_update_sequence(self, sequence_number, sub_sequence_number):
