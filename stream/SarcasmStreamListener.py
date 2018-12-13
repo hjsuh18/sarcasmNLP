@@ -10,17 +10,15 @@ sys.path.append('../') # hard-coded path to file
 from keys.twitter_keys import *
 from myNLP.cleanTweets import *
 
-class StreamStoreListener(tweepy.StreamListener):
+class SarcasmStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         text = status.text
         #  do not save retweets
         if isRetweet(text) or  startsWithMention(text) or containsURL(text):
             return
 
-        # put tweet id and text into aws kinesis
-        kinesis = boto3.client("kinesis")
-        kinesis.put_record(StreamName="twitter", Data=bytes(status.id_str + " " + text, 'utf-8'), PartitionKey="filler")
         print(status.id_str)
+        print(text)
 
     def on_error(self, status_code):
         # twitter sends 420 when connection rate limited
