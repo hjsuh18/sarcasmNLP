@@ -121,11 +121,9 @@ class RecordProcessor(processor.RecordProcessorBase):
 		text = split[1]
 
 		text = toLowerCase(text)
-                sarcastic = hashtagLabel(text)
+        sarcastic = hashtagLabel(text)
 		text = removeMention(text)
 		text = removeHashtag(text)
-
-		sarcastic = hashtagLabel(text)
 
 		# do more data processing here
 		self.save_data(id, text, sarcastic)
