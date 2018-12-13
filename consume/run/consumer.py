@@ -121,7 +121,7 @@ class RecordProcessor(processor.RecordProcessorBase):
 		text = split[1]
 
 		text = toLowerCase(text)
-        sarcastic = hashtagLabel(text)
+		sarcastic = hashtagLabel(text)
 		text = removeMention(text)
 		text = removeHashtag(text)
 
