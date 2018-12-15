@@ -97,7 +97,8 @@ class RecordProcessor(processor.RecordProcessorBase):
 		save data to DynamoDB table
 		"""
 		dynamodb = boto3.client('dynamodb')
-		response = dynamodb.put_item(TableName="tweets", Item={"id" : {"N" : id}, "text" : {"S": text}, "sarcastic": {"BOOL": sarcastic}})
+		# response = dynamodb.put_item(TableName="tweets", Item={"id" : {"N" : id}, "text" : {"S": text}, "sarcastic": {"BOOL": sarcastic}})
+		response = dynamodb.put_item(TableName="tweets_hashtag", Item={"id" : {"N" : id}, "text" : {"S": text}, "sarcastic": {"BOOL": sarcastic}})
 
 	def process_record(self, data, partition_key, sequence_number, sub_sequence_number):
 		"""
@@ -123,7 +124,7 @@ class RecordProcessor(processor.RecordProcessorBase):
 		text = toLowerCase(text)
 		sarcastic = hashtagLabel(text)
 		text = removeMention(text)
-		text = removeHashtag(text)
+		# text = removeHashtag(text)
 
 		# do more data processing here
 		self.save_data(id, text, sarcastic)
