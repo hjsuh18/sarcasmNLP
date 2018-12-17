@@ -4,7 +4,7 @@ import boto3
 from boto3.dynamodb.conditions import Key, Attr
 
 dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('tweets')
+table = dynamodb.Table('tweets_hashtag')
 print("tweets table item count:")
 print(table.item_count)
 
