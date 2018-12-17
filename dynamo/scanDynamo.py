@@ -17,8 +17,8 @@ response = table.scan(
 data = response['Items']
 for d in data:
 	text = d['text']
-	if '#sarcasm' in text or '#sarcastic' in text:
-		print(text)
+	#if '#sarcasm' in text or '#sarcastic' in text:
+	print(text)
 	#count = count + 1
 	# print(count)
 
@@ -31,8 +31,8 @@ while response.get('LastEvaluatedKey'):
 	data = response['Items']
 	for d in data:
 		text = d['text']
-		if '#sarcasm' in text or '#sarcastic' in text:
-			print(text)
+		#if '#sarcasm' in text or '#sarcastic' in text:
+		print(text)
 		#count = count + 1
 		#print(count)
 
