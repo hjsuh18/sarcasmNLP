@@ -18,7 +18,7 @@ data = response['Items']
 for d in data:
 	text = d['text']
 	if '#sarcasm' in text or '#sarcastic' in text:
-		print text
+		print(text)
 	#count = count + 1
 	# print(count)
 
@@ -32,7 +32,7 @@ while response.get('LastEvaluatedKey'):
 	for d in data:
 		text = d['text']
 		if '#sarcasm' in text or '#sarcastic' in text:
-			print text
+			print(text)
 		#count = count + 1
 		#print(count)
 
