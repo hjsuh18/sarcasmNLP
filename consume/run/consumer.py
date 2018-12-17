@@ -27,6 +27,8 @@ sys.path.append('/home/ec2-user/sarcasmNLP/')
 from myNLP.cleanTweets import *
 from myNLP.labelTweets import hashtagLabel
 
+TABLE_NAME = "tweets_sarcastic"
+
 class RecordProcessor(processor.RecordProcessorBase):
 	"""
 	A RecordProcessor processes data from a shard in a stream. Its methods will be called with this pattern:
@@ -97,8 +99,7 @@ class RecordProcessor(processor.RecordProcessorBase):
 		save data to DynamoDB table
 		"""
 		dynamodb = boto3.client('dynamodb')
-		# response = dynamodb.put_item(TableName="tweets", Item={"id" : {"N" : id}, "text" : {"S": text}, "sarcastic": {"BOOL": sarcastic}})
-		response = dynamodb.put_item(TableName="tweets_hashtag", Item={"id" : {"N" : id}, "text" : {"S": text}, "sarcastic": {"BOOL": sarcastic}})
+		response = dynamodb.put_item(TableName=TABLE_NAME, Item={"id" : {"N" : id}, "text" : {"S": text}, "sarcastic": {"BOOL": sarcastic}})
 
 	def process_record(self, data, partition_key, sequence_number, sub_sequence_number):
 		"""

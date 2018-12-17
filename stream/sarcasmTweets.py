@@ -3,7 +3,7 @@
 # Description: Streams tweets using tweepy package
 # Use python 2.7 - 3.6 when using tweepy
 import tweepy
-from SarcasmStreamListener import SarcasmStreamListener
+from StreamStoreListener import StreamStoreListener
 
 # import twitter keys and tokens from a separate keys folder
 import sys
@@ -16,12 +16,10 @@ def main():
     auth.set_access_token(access_token, access_secret)
     api = tweepy.API(auth)
 
-    streamStoreListener = SarcasmStreamListener()
+    streamStoreListener = StreamStoreListener()
     stream = tweepy.Stream(auth = api.auth, listener=streamStoreListener)
-    # places = api.geo_search(query="USA",granularity="country")
 
-    # stream all english tweets
-    # need track parameter, so use vowels to track every tweet
+    # stream all english tweets with sarcasm hashtag
     stream.filter(languages=["en"], track=["#sarcasm", "#sarcastic"])
 
 if __name__ == '__main__':
