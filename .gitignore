@@ -3,4 +3,4 @@ keys
 __pycache__
 env
 *.pyc
-data
+data/sarc

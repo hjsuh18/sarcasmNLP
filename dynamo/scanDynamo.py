@@ -32,3 +32,4 @@ while response.get('LastEvaluatedKey'):
 
 print("Final Count:")
 print(count)
+
