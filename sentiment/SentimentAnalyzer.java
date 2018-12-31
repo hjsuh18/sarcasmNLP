@@ -50,6 +50,27 @@ public class SentimentAnalyzer {
 		return total;
 	}
 
+	// Get the positivity of sentence using corenlp sentiment analyzer
+	public double getPositivity(String text) {
+		Annotation document = new Annotation(text);
+
+		pipeline.annotate(document);	
+		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+
+		double total = 0.0;
+		int count = 0;
+
+		for (CoreMap sent : sentences) {	
+			Tree sentiTree = sent.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class);
+			SimpleMatrix m = RNNCoreAnnotations.getPredictions(sentiTree);
+			double sentimentScore = matrixToScore(m); 
+			total += sentimentScore;
+			count++;
+		}
+
+		return round(total / count);
+	}
+
 	// returns a double in range 0 - 4 representing sentiment score of sentences
 	// 0: very negative, 1: negative, 2: neutral, 3: positive, 4: very positive
 
@@ -129,9 +150,6 @@ public class SentimentAnalyzer {
 		features.add(round(max));
 		features.add(round(min));
 		features.add(round(max - min));
-
-		// printSentimentTree(minTree);
-		// printSentimentTree(maxTree);
 
 		return features;
 	}
