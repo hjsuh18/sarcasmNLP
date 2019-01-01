@@ -31,7 +31,39 @@ public class SentimentAnalyzer {
 	private static void printSentimentTree(Tree sentiTree) {	
 		if (sentiTree == null)
 			return;
-		sentiTree.pennPrint();
+
+			// BFS down the tree to get sentiment scores of phrases within sentence
+			// and their contrasts
+		List<List<Tree>> levels = new LinkedList<List<Tree>>();
+		List<Tree> current = new LinkedList<Tree>();
+		current.add(sentiTree);
+
+		while (!current.isEmpty()) {
+			levels.add(current);
+			List<Tree> next = new LinkedList<Tree>();
+
+			for (Tree t : current) {
+				Tree[] children = t.children();				
+				if (children.length <= 1)
+					continue;
+				for (Tree child : children)
+					next.add(child);
+			}
+			current = next;
+		}
+
+		int count = 0;
+		for (List<Tree> level : levels) {
+			System.out.printf("Level %d:\n", count);
+
+			for (Tree t : level) {
+				SimpleMatrix m = RNNCoreAnnotations.getPredictions(t);
+				double score = matrixToScore(m);
+				t.pennPrint();
+				System.out.println(score);
+			}
+			count++;
+		}
 	}
 
 	private static double round(double d) {
@@ -40,7 +72,7 @@ public class SentimentAnalyzer {
 
 
 	// Get expected sentiment score from SimpleMatrix that holds probabilities of sentiments
-	private double matrixToScore(SimpleMatrix m) {
+	private static double matrixToScore(SimpleMatrix m) {
 		if (m == null) return 0.0;
 		double total = 0.0;
 		double[] data = m.getMatrix().data;
@@ -98,9 +130,13 @@ public class SentimentAnalyzer {
 		double min = Double.MAX_VALUE;
 		Tree maxTree = null;
 		Tree minTree = null;
+		Tree leftTree = null;
+		Tree rightTree = null;
 
 		for (CoreMap sent : sentences) {
 			Tree sentiTree = sent.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class);
+			printSentimentTree(sentiTree);
+
 			SimpleMatrix m = RNNCoreAnnotations.getPredictions(sentiTree);
 			double sentimentScore = matrixToScore(m); 
 			total += sentimentScore;
@@ -138,8 +174,11 @@ public class SentimentAnalyzer {
 				SimpleMatrix rightMatrix = RNNCoreAnnotations.getPredictions(children[1]);
 				double rightScore = matrixToScore(rightMatrix);
 				double diff = Math.abs(leftScore - rightScore);
-				if (diff > maxContrast)
+				if (diff > maxContrast) {
+					leftTree = children[0];
+					rightTree = children[1];
 					maxContrast = diff;
+				}
 
 				for (Tree t : children) 
 					q.add(t);
@@ -150,6 +189,11 @@ public class SentimentAnalyzer {
 		features.add(round(max));
 		features.add(round(min));
 		features.add(round(max - min));
+
+		leftTree.pennPrint();
+		rightTree.pennPrint();
+		maxTree.pennPrint();
+		minTree.pennPrint();	
 
 		return features;
 	}

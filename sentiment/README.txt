@@ -1,6 +1,6 @@
 Setting classpath for execution:
 Compile SentimentAnalyzer.java :
-java -cp "../corenlp/:." SentimentAnalyzer.java
+javac -cp "../corenlp/:." SentimentAnalyzer.java
 
 Execute SentimentAnalyzer
 java -cp "../corenlp/:." SentimentAnalyzer

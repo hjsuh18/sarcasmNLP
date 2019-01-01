@@ -58,7 +58,13 @@ def uploadData(data, table_name):
 		count = count + 1
 		if count % 1000 == 0:
 			print(count)
-
+# list[0]: whole sentence positivity score
+# list[1]: adjacent sentiment contrast score 	
+# list[2]: maximum phrase sentiment score
+# list[3]: minimum phrase sentiment score
+# list[4]: phrase sentiment contrast score
+# list[5]: positivity score of parent
+# list[6]: parent-child sentiment contrast
 def getFeatures(text, parent, sa):
 	features = sa.getFeatures(text)
 	positivity = features[0]
