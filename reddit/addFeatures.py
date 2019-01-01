@@ -8,14 +8,20 @@ from boto3.dynamodb.conditions import Key, Attr
 from py4j.java_gateway import JavaGateway
 
 # retrieve data from DynamoDB table and return as dict
-def getData(table_name):
+# lo and hi denote the boundaries of indexes to get from table
+def getData(table_name, lo, hi):
 	dynamodb = boto3.resource('dynamodb')
 	table = dynamodb.Table(table_name)
+
+	counter = -1
 
 	reddit = {}
 	response = table.scan()
 	data = response['Items']
 	for d in data:
+		counter = counter + 1
+		if counter < lo or counter >= hi:
+			continue
 		comment_id, parent, sarcastic, text = d["comment_id"], d["parent"], d["sarcastic"], d["text"]
 		reddit[comment_id] = (parent, sarcastic, text)
 	    
@@ -23,6 +29,9 @@ def getData(table_name):
 		response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
 		data = response['Items']
 		for d in data:	
+			counter = counter + 1
+			if counter < lo or counter >= hi:
+				continue
 			comment_id, parent, sarcastic, text = d["comment_id"], d["parent"], d["sarcastic"], d["text"]
 			reddit[comment_id] = (parent, sarcastic, text)
 	return reddit
@@ -70,13 +79,20 @@ def getFeatures(text, parent, sa):
 	return features
 
 def main():
-	if len(sys.argv) < 3 or len(sys.argv) > 3:
+	if len(sys.argv) != 3 and len(sys.argv) != 5:
 		print("Invalid number of command-line arguments")
 
 	getDataTableName = sys.argv[1]
 	uploadDataTableName = sys.argv[2]
 
-	data = getData(getDataTableName)
+	data = {}	
+	lo = 0
+	hi = sys.maxsize
+	if len(sys.argv) == 5:
+		lo = int(sys.argv[3])
+		hi = int(sys.argv[4])
+
+	data = getData(getDataTableName, lo, hi)
 
 	gateway = JavaGateway()
 	sa = gateway.entry_point.getSentimentAnalyzer()
