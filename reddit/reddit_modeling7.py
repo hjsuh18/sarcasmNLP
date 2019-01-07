@@ -72,7 +72,7 @@ testXNoParent = [a[0:5] for a in testX]
 # # Random Forest Classification
 # print("Random Forest Classification no parent")
 # # from sklearn.model_selection import RandomizedSearchCV
-# from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier
 # print("n_estimator=500, max_features='sqrt', max_depth=300")
 # # import numpy as np
 # rfc = RandomForestClassifier(n_estimator=500, max_features='sqrt', max_depth=300)
