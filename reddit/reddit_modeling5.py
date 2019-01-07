@@ -120,7 +120,7 @@ from sklearn import svm
 # from sklearn.model_selection import GridSearchCV
 # parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10, 50, 100, 120, 135, 150, 160, 170, 180]}
 print("gamma='scale', kernel='rbf', C=60")
-clf = svm.SVC(gamma='scale', kernel='rbf', C=60)
+clf = svm.SVC(gamma='scale', kernel='rbf', C=60, verbose=True)
 # clf = GridSearchCV(svc, parameters, cv= 5)
 clf.fit(trainX, trainY)
 prediction = clf.predict(testX)

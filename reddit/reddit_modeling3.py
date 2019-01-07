@@ -75,7 +75,7 @@ print("Random Forest Classification no parent")
 from sklearn.ensemble import RandomForestClassifier
 print("n_estimator=500, max_features='sqrt', max_depth=300")
 # import numpy as np
-rfc = RandomForestClassifier(n_estimator=500, max_features='sqrt', max_depth=300)
+rfc = RandomForestClassifier(n_estimator=500, max_features='sqrt', max_depth=300, verbose=True)
 # n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
 # max_features = ['auto', 'sqrt']
 # max_depth = [int(x) for x in np.linspace(100, 500, num = 11)]

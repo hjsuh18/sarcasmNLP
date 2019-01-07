@@ -51,7 +51,7 @@ from sklearn import svm
 # svc = svm.SVC(gamma='scale')
 # clf = GridSearchCV(svc, parameters, cv= 5)
 print("(kernel='rbf', C=135, gamma='scale'")
-clf = svm.SVC(kernel='rbf', C=135, gamma='scale')
+clf = svm.SVC(kernel='rbf', C=135, gamma='scale', verbose=True)
 clf.fit(trainXNoParent, trainY)
 prediction = clf.predict(testXNoParent)
 evaluation(testY, prediction)
