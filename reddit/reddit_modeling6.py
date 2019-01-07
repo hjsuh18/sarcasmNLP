@@ -133,7 +133,7 @@ print("Gaussian Process Classification parent")
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import RBF
 kernel = 1.0 * RBF(1.0)
-clf = GaussianProcessClassifier(kernel=kernel,random_state=0, verbose=True)
+clf = GaussianProcessClassifier(kernel=kernel,random_state=0)
 clf.fit(trainX, trainY)
 prediction = clf.predict(testX)
 evaluation(testY, prediction)

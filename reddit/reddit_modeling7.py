@@ -144,7 +144,7 @@ print("Random Forest Classification parent")
 # import numpy as np
 # from sklearn.model_selection import RandomizedSearchCV
 print("n_estimator=200, max_features='sqrt', max_depth=100")
-rfc = RandomForestClassifier(n_estimator=200, max_features='sqrt', max_depth=100, verbose=True)
+rfc = RandomForestClassifier(n_estimators=200, max_features='sqrt', max_depth=100, verbose=2)
 # n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
 # max_features = ['auto', 'sqrt']
 # max_depth = [int(x) for x in np.linspace(100, 500, num = 11)]
