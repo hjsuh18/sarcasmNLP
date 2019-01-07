@@ -177,7 +177,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import GridSearchCV
 mlp = MLPClassifier(max_iter=1000)
 parameter_space = {
-    'hidden_layer_sizes': [(5), (4), (3), (5, 2), (4, 2), (3, 2)],
+    'hidden_layer_sizes': [(7), (6), (5), (4), (3), (7, 3), (7, 4), (7, 2), (6, 4), (6, 3), (6, 2), (5, 3), (5, 2), (4, 2), (3, 2)],
     'activation': ['tanh', 'relu'],
     'solver': ['sgd', 'adam', 'lbfgs'],
     'alpha': [0.0001, 0.01, 0.001],
