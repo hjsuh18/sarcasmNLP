@@ -152,6 +152,7 @@ print()
 
 # Random Forest Classification
 print("Random Forest Classification emoji")
+import numpy as np
 from sklearn.model_selection import RandomizedSearchCV
 rfc = RandomForestClassifier()
 n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
