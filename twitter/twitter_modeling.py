@@ -30,25 +30,6 @@ print("Testing features count: ", len(testX))
 print("Testing features count: ", len(testY))
 print("Total count: ", len(trainX) + len(testX))
 
-# features split into all, sarcastic, non-sarcastic
-feat, sarcFeat, nonsarcFeat = [], [], []
-for i in range(0, len(trainX)):
-    feat.append(trainX[i])
-    if trainY[i]:
-        sarcFeat.append(trainX[i])
-    else:
-        nonsarcFeat.append(trainX[i])
-        
-for i in range(0, len(testX)):
-    feat.append(testX[i])
-    if testY[i]:
-        sarcFeat.append(testX[i])
-    else:
-        nonsarcFeat.append(testX[i])
-print("Sarcastic count: ", len(sarcFeat))
-print("Non-sarcatic count: ", len(nonsarcFeat))
-print("Total count: ", len(feat))
-
 from sklearn import metrics
 def evaluation(true, prediction):
     print("Accuracy: ", metrics.accuracy_score(true, prediction))
@@ -88,6 +69,7 @@ print()
 print("Random Forest Classification no emoji")
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier
+import numpy as np
 rfc = RandomForestClassifier()
 n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 10)]
 max_features = ['auto', 'sqrt']
