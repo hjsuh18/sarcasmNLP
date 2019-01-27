@@ -1,41 +1,34 @@
 # sarcasmNLP
-Using sentiment analysis and Emojis to enhance sarcasm detection in tweets
+Class project to train a machine learning model to detect sarcasm on Twitter and Reddit.
 
-## Setting up python virtualenv
-```
-sudo yum install --user python3-pip
-pip3 install virtualenv
-python3 -m virtualenv env
-source env/bin/activate
-```
+## Modules
+* consume
+	* Amazon kclpy to consume data from AWS Kinesis stream
+	* `python consume/consumer.py` to start consuming data
+* corenlp
+	* Stanford CoreNLP module to use Socher et al.'s sentiment analysis model
+* data
+	* Process and save Reddit SARC dataset to dynamoDB
+	* `python save_csv.py` to save the coded csv files
+	* `python save_json.py` to save the commments.json files
+* dynamo
+	* Python files that scans cleans and labels data in DynamoDB
+	* These were used as sample code as a guideline for interacting with AWS DynamoDB
+* myNLP
+	* Clean, label and parse tweets to find emojis
+	* `python cleanTweets.py` to clean
+	* `python labelTweets.py` to label
+	* `python EmojiParse.py` to parse emojis
+* reddit
+	* `python addFeatures.py` to get data from DynamoDB, use CoreNLP to generate features and upload them to DynamoDB
+	* `python reddit_modeling.py` to train, test and evaluate models
+* sentiment
+	* Java code to use Stanford CoreNLP to engineer sentiment features
+	* `SentimentAnalyzer.java` generates sentiment features given a piece of text
+	* `SentimentAnalyzerEntryPoint.java` provides an entrypoint to the JVM allowing access from Python
+* twitter
+	* `python prepareDataset.py` to prepare the twitter dataset
+	* `python streamTweets.py` to stream tweets using Twitter API
+	* `python twitter_modeling.py` to train, test and evaluate ML models
 
-## Useful command-line commands
-Set up AWS CLI.
 
-SSH into EC2 instance:
-```
-ssh -i /path/my-key-pair.pem user_name@public_dns_name
-ssh -i nlp_tweet_stream.pem ec2-user@ec2-18-208-250-4.compute-1.amazonaws.com
-```
-`Ctrl + d` to exit from ssh connection
-
-Copy files from local computer to EC2 instance:
-```
-scp -i /path/my-key-pair.pem /path/SampleFile.txt ec2-user@ec2-18-208-250-4.compute-1.amazonaws.com:~/path/to/folder/
-```
-
-## Feature Engineering
-- SentiWordNet
-	- Most negative and most positive words
-	- Difference between most positive and most negative
-	- Largest difference in sentiment between adjacent words
-	- Group words together by halves and thirds to engineer features to capture contrasts in sentiment throughout a sentence
-- CoreNLP
-	- Maximum difference between adjacent children. Only go to second to lowest level, since otherwise might pick up on negations such as 'not good'
-	- Subjectivity/Objectivity
-	- Overall sentiment of sentence
-- Tweet-specific features
-	- Hashtags
-	- Emojis
-- Reddit
-	- Evaluate the sentiment of main comment
