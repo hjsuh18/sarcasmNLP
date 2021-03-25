@@ -45,7 +45,7 @@ py4j==0.10.8.1
 Pygments==2.3.1
 python-dateutil==2.7.5
 pytz==2018.7
-PyYAML==3.13
+PyYAML==5.4
 pyzmq==17.1.2
 qtconsole==4.4.3
 requests==2.21.0
